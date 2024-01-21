@@ -18,11 +18,40 @@ interface CoinData {
   profitLoss: number;
 }
 
+const tableContainerStyle: React.CSSProperties = {
+  margin: '20px 0',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  borderRadius: '10px',
+  overflow: 'hidden',
+};
+
+const tableStyle: React.CSSProperties = {
+  width: '100%',
+  borderCollapse: 'collapse',
+};
+
+const tableHeaderStyle: React.CSSProperties = {
+  background: '#3498db',
+  color: '#fff',
+  padding: '15px',
+  textAlign: 'left',
+  borderBottom: '2px solid #fff',
+};
+
+const tableRowStyle: React.CSSProperties = {
+  borderBottom: '1px solid #ddd',
+};
+
+const tableCellStyle: React.CSSProperties = {
+  padding: '15px',
+  borderBottom: '1px solid #ddd',
+};
+
 const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({ coinPortfolio }) => {
   return (
-    <div>
-      <h2>Portfolio Summary</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+    <div style={tableContainerStyle}>
+      <h2 style={{ background: '#3498db', color: '#fff', padding: '15px', textAlign: 'center' }}>Portfolio Summary</h2>
+      <table style={tableStyle}>
         <thead>
           <tr>
             <th style={tableHeaderStyle}>Coin Name</th>
@@ -55,19 +84,3 @@ const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({ coinPortfolio }) =>
 };
 
 export default PortfolioDisplay;
-
-// Styles
-const tableHeaderStyle: React.CSSProperties = {
-  background: '#f2f2f2',
-  padding: '10px',
-  border: '1px solid #ddd',
-};
-
-const tableRowStyle: React.CSSProperties = {
-  border: '1px solid #ddd',
-};
-
-const tableCellStyle: React.CSSProperties = {
-  padding: '10px',
-  border: '1px solid #ddd',
-};

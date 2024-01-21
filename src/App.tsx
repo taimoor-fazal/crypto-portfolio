@@ -24,6 +24,18 @@ interface CoinData {
   profitLoss: number;
 }
 
+const containerStyle: React.CSSProperties = {
+  fontFamily: 'Arial, sans-serif',
+  backgroundColor: '#3498db',
+  color: '#fff',
+  padding: '20px',
+  maxWidth: '800px',
+  margin: '0 auto',
+  borderRadius: '10px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+};
+
+
 function calculatePortfolioAttributes(transactions: TransactionType[]): Record<string, CoinData> {
   const coinPortfolio: Record<string, CoinData> = {};
 
@@ -80,12 +92,13 @@ function App() {
   const coinPortfolio = calculatePortfolioAttributes(transactions);
 
   return (
-    <div>
-      <h1>Crypto Portfolio Manager</h1>
+    <div style={containerStyle}>
+      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Crypto Portfolio Manager</h1>
       <TransactionForm onAddTransaction={addTransaction} />
       <PortfolioDisplay coinPortfolio={coinPortfolio} />
     </div>
   );
 }
+
 
 export default App;
