@@ -18,6 +18,10 @@ export type TransactionsViewProps = {
   transactions: TransactionType[];
 };
 
+export function formatNumber(num: number) {
+  return num.toLocaleString();
+}
+
 interface CoinData {
   totalQuantity: number;
   cumulativeBuyCost: number;

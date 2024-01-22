@@ -1,5 +1,5 @@
 import React from "react";
-import { TransactionsViewProps } from "./App";
+import { TransactionsViewProps, formatNumber } from "./App";
 import { tableCellStyle, tableRowStyle, tableStyle } from "./common-styles";
 
 export const TransactionsTable = ({ transactions }: TransactionsViewProps) => {
@@ -22,8 +22,12 @@ export const TransactionsTable = ({ transactions }: TransactionsViewProps) => {
               <td style={tableCellStyle}>{transaction.date ?? ""}</td>
               <td style={tableCellStyle}>{transaction.coinName}</td>
               <td style={tableCellStyle}>{transaction.transactionType}</td>
-              <td style={tableCellStyle}>{transaction.quantity}</td>
-              <td style={tableCellStyle}>{transaction.pricePerCoin}</td>
+              <td style={tableCellStyle}>
+                {formatNumber(transaction.quantity)}
+              </td>
+              <td style={tableCellStyle}>
+                {formatNumber(transaction.pricePerCoin)}
+              </td>
             </tr>
           ))}
         </tbody>

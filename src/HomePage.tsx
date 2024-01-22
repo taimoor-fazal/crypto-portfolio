@@ -6,6 +6,7 @@ import {
   summaryItemStyle,
   summaryValueStyle,
 } from "./common-styles";
+import { formatNumber } from "./App";
 
 type CoinData = {
   totalQuantity: number;
@@ -41,15 +42,15 @@ export const HomePage = ({ coinPortfolio }: HomePageProps) => {
       <div style={summaryContainerStyle}>
         <div style={summaryItemStyle}>
           Total Money Spent:{" "}
-          <span style={summaryValueStyle}>{totalSpent.toFixed(2)}</span>
+          <span style={summaryValueStyle}>{formatNumber(totalSpent)}</span>
         </div>
         <div style={summaryItemStyle}>
           Total Money Earned:{" "}
-          <span style={summaryValueStyle}>{totalEarned.toFixed(2)}</span>
+          <span style={summaryValueStyle}>{formatNumber(totalEarned)}</span>
         </div>
         <div style={summaryItemStyle}>
           Total Profit:{" "}
-          <span style={summaryValueStyle}>{totalProfit.toFixed(2)}</span>
+          <span style={summaryValueStyle}>{formatNumber(totalProfit)}</span>
         </div>
       </div>
       <PortfolioDisplay coinPortfolio={coinPortfolio} />

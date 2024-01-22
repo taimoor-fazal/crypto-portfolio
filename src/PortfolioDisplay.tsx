@@ -8,6 +8,7 @@ import {
   tableRowStyle,
   tableStyle,
 } from "./common-styles";
+import { formatNumber } from "./App";
 
 interface PortfolioDisplayProps {
   coinPortfolio: Record<string, CoinData>;
@@ -60,19 +61,23 @@ const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({
               <td style={tableCellStyle}>{coinName}</td>
               <td style={tableCellStyle}>{coinData.totalQuantityOwned}</td>
               <td style={tableCellStyle}>
-                {coinData.averageBuyCost.toFixed(2)}
+                {formatNumber(coinData.averageBuyCost)}
               </td>
               <td style={tableCellStyle}>
-                {coinData.cumulativeBuyCost.toFixed(2)}
+                {formatNumber(coinData.cumulativeBuyCost)}
               </td>
               <td style={tableCellStyle}>
-                {coinData.averageSellCost.toFixed(2)}
+                {formatNumber(coinData.averageSellCost)}
               </td>
               <td style={tableCellStyle}>
-                {coinData.cumulativeSellCost.toFixed(2)}
+                {formatNumber(coinData.cumulativeSellCost)}
               </td>
-              <td style={tableCellStyle}>{coinData.profitLoss.toFixed(2)}</td>
-              <td style={tableCellStyle}>{coinData.currentValue.toFixed(2)}</td>
+              <td style={tableCellStyle}>
+                {formatNumber(coinData.profitLoss)}
+              </td>
+              <td style={tableCellStyle}>
+                {formatNumber(coinData.currentValue)}
+              </td>
             </tr>
           ))}
         </tbody>
