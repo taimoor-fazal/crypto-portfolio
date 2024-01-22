@@ -1,6 +1,11 @@
 import React from "react";
 import PortfolioDisplay from "./PortfolioDisplay";
 import { Link } from "react-router-dom";
+import {
+  summaryContainerStyle,
+  summaryItemStyle,
+  summaryValueStyle,
+} from "./common-styles";
 
 type CoinData = {
   totalQuantity: number;
@@ -33,12 +38,22 @@ export const HomePage = ({ coinPortfolio }: HomePageProps) => {
 
   return (
     <div>
-      <PortfolioDisplay coinPortfolio={coinPortfolio} />
-      <div>
-        <p>Total Money Spent: {totalSpent.toFixed(2)}</p>
-        <p>Total Money Earned: {totalEarned.toFixed(2)}</p>
-        <p>Total Profit: {totalProfit.toFixed(2)}</p>
+      <div style={summaryContainerStyle}>
+        <div style={summaryItemStyle}>
+          Total Money Spent:{" "}
+          <span style={summaryValueStyle}>{totalSpent.toFixed(2)}</span>
+        </div>
+        <div style={summaryItemStyle}>
+          Total Money Earned:{" "}
+          <span style={summaryValueStyle}>{totalEarned.toFixed(2)}</span>
+        </div>
+        <div style={summaryItemStyle}>
+          Total Profit:{" "}
+          <span style={summaryValueStyle}>{totalProfit.toFixed(2)}</span>
+        </div>
       </div>
+      <PortfolioDisplay coinPortfolio={coinPortfolio} />
+
       <Link to="/transactions">View All Transactions</Link>
     </div>
   );

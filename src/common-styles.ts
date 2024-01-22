@@ -82,3 +82,23 @@ export const containerStyle: React.CSSProperties = {
   borderRadius: "8px",
   boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
 };
+
+export const summaryContainerStyle: React.CSSProperties = {
+  backgroundColor: "#f8f9fa", // light background
+  padding: "20px",
+  borderRadius: "8px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  margin: "20px 0",
+  textAlign: "center",
+};
+
+export const summaryItemStyle: React.CSSProperties = {
+  margin: "10px 0",
+  fontWeight: "bold",
+  fontSize: "1.2em",
+  color: "#333",
+};
+
+export const summaryValueStyle: React.CSSProperties = {
+  color: "#28a745", // green, you can change colors based on positive or negative values
+};
