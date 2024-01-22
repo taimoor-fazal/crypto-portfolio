@@ -1,5 +1,5 @@
 // App.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TransactionForm from "./TransactionForm";
 import { containerStyle, headingStyle } from "./common-styles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -83,6 +83,20 @@ function calculatePortfolioAttributes(
 
 function App() {
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
+
+  useEffect(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    if (storedTransactions) {
+      setTransactions(JSON.parse(storedTransactions));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (transactions.length > 0) {
+      console.log("Saving to localStorage", transactions);
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+    }
+  }, [transactions]);
 
   const addTransaction = (transaction: TransactionType) => {
     setTransactions([...transactions, transaction]);

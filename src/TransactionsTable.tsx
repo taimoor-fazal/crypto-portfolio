@@ -19,7 +19,7 @@ export const TransactionsTable = ({ transactions }: TransactionsViewProps) => {
         <tbody>
           {transactions.map((transaction, index) => (
             <tr key={index} style={tableRowStyle}>
-              <td style={tableCellStyle}>{transaction.date}</td>
+              <td style={tableCellStyle}>{transaction.date ?? ""}</td>
               <td style={tableCellStyle}>{transaction.coinName}</td>
               <td style={tableCellStyle}>{transaction.transactionType}</td>
               <td style={tableCellStyle}>{transaction.quantity}</td>
