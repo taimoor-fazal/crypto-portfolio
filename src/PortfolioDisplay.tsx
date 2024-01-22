@@ -1,5 +1,13 @@
 // PortfolioDisplay.tsx
-import React from 'react';
+import React from "react";
+import {
+  headingStyle,
+  tableCellStyle,
+  tableContainerStyle,
+  tableHeaderStyle,
+  tableRowStyle,
+  tableStyle,
+} from "./common-styles";
 
 interface PortfolioDisplayProps {
   coinPortfolio: Record<string, CoinData>;
@@ -18,39 +26,21 @@ interface CoinData {
   profitLoss: number;
 }
 
-const tableContainerStyle: React.CSSProperties = {
-  margin: '20px 0',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  borderRadius: '10px',
-  overflow: 'hidden',
-};
-
-const tableStyle: React.CSSProperties = {
-  width: '100%',
-  borderCollapse: 'collapse',
-};
-
-const tableHeaderStyle: React.CSSProperties = {
-  background: '#3498db',
-  color: '#fff',
-  padding: '15px',
-  textAlign: 'left',
-  borderBottom: '2px solid #fff',
-};
-
-const tableRowStyle: React.CSSProperties = {
-  borderBottom: '1px solid #ddd',
-};
-
-const tableCellStyle: React.CSSProperties = {
-  padding: '15px',
-  borderBottom: '1px solid #ddd',
-};
-
-const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({ coinPortfolio }) => {
+const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({
+  coinPortfolio,
+}) => {
   return (
     <div style={tableContainerStyle}>
-      <h2 style={{ background: '#3498db', color: '#fff', padding: '15px', textAlign: 'center' }}>Portfolio Summary</h2>
+      <h2
+        style={{
+          ...headingStyle,
+          background: "#007bff",
+          color: "#fff",
+          padding: "10px 15px",
+        }}
+      >
+        Portfolio Summary
+      </h2>
       <table style={tableStyle}>
         <thead>
           <tr>
@@ -69,10 +59,18 @@ const PortfolioDisplay: React.FC<PortfolioDisplayProps> = ({ coinPortfolio }) =>
             <tr key={coinName} style={tableRowStyle}>
               <td style={tableCellStyle}>{coinName}</td>
               <td style={tableCellStyle}>{coinData.totalQuantityOwned}</td>
-              <td style={tableCellStyle}>{coinData.averageBuyCost.toFixed(2)}</td>
-              <td style={tableCellStyle}>{coinData.cumulativeBuyCost.toFixed(2)}</td>
-              <td style={tableCellStyle}>{coinData.averageSellCost.toFixed(2)}</td>
-              <td style={tableCellStyle}>{coinData.cumulativeSellCost.toFixed(2)}</td>
+              <td style={tableCellStyle}>
+                {coinData.averageBuyCost.toFixed(2)}
+              </td>
+              <td style={tableCellStyle}>
+                {coinData.cumulativeBuyCost.toFixed(2)}
+              </td>
+              <td style={tableCellStyle}>
+                {coinData.averageSellCost.toFixed(2)}
+              </td>
+              <td style={tableCellStyle}>
+                {coinData.cumulativeSellCost.toFixed(2)}
+              </td>
               <td style={tableCellStyle}>{coinData.profitLoss.toFixed(2)}</td>
               <td style={tableCellStyle}>{coinData.currentValue.toFixed(2)}</td>
             </tr>

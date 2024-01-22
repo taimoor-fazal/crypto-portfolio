@@ -1,25 +1,38 @@
 // TransactionForm.tsx
-import React, { ChangeEvent, useState } from 'react';
-import { TransactionType } from './App';
+import React, { ChangeEvent, useState } from "react";
+import { TransactionType } from "./App";
+import {
+  buttonStyle,
+  formStyle,
+  inputStyle,
+  labelStyle,
+} from "./common-styles";
 
-interface TransactionFormProps {
+type TransactionFormProps = {
   onAddTransaction: (transaction: TransactionType) => void;
-}
+};
 
-const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
+const TransactionForm: React.FC<TransactionFormProps> = ({
+  onAddTransaction,
+}: TransactionFormProps) => {
   const [formData, setFormData] = useState<TransactionType>({
-    coinName: '',
-    transactionType: 'Buy',
+    coinName: "",
+    transactionType: "Buy",
     quantity: 0,
     pricePerCoin: 0,
-    date: '',
+    date: "",
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === 'quantity' || name === 'pricePerCoin' ? parseFloat(value) : value,
+      [name]:
+        name === "quantity" || name === "pricePerCoin"
+          ? parseFloat(value)
+          : value,
     }));
   };
 
@@ -27,40 +40,71 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
     e.preventDefault();
     onAddTransaction({ ...formData });
     setFormData({
-      coinName: '',
-      transactionType: 'Buy',
+      coinName: "",
+      transactionType: "Buy",
       quantity: 0,
       pricePerCoin: 0,
-      date: '',
+      date: "",
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form style={formStyle} onSubmit={handleSubmit}>
+      <label style={labelStyle}>
         Coin Name:
-        <input type="text" name="coinName" value={formData.coinName} onChange={handleInputChange} />
+        <input
+          style={inputStyle}
+          type="text"
+          name="coinName"
+          value={formData.coinName}
+          onChange={handleInputChange}
+        />
       </label>
-      <label>
+      <label style={labelStyle}>
         Transaction Type:
-        <select name="transactionType" value={formData.transactionType} onChange={handleInputChange}>
+        <select
+          style={inputStyle}
+          name="transactionType"
+          value={formData.transactionType}
+          onChange={handleInputChange}
+        >
           <option value="Buy">Buy</option>
           <option value="Sell">Sell</option>
         </select>
       </label>
-      <label>
+      <label style={labelStyle}>
         Quantity:
-        <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} />
+        <input
+          style={inputStyle}
+          type="number"
+          name="quantity"
+          value={formData.quantity}
+          onChange={handleInputChange}
+        />
       </label>
-      <label>
+      <label style={labelStyle}>
         Price Per Coin:
-        <input type="number" name="pricePerCoin" value={formData.pricePerCoin} onChange={handleInputChange} />
+        <input
+          style={inputStyle}
+          type="number"
+          name="pricePerCoin"
+          value={formData.pricePerCoin}
+          onChange={handleInputChange}
+        />
       </label>
-      <label>
+      <label style={labelStyle}>
         Date:
-        <input type="date" name="date" value={formData.date} onChange={handleInputChange} />
+        <input
+          style={inputStyle}
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleInputChange}
+        />
       </label>
-      <button type="submit">Add Transaction</button>
+      <button style={buttonStyle} type="submit">
+        Add Transaction
+      </button>
     </form>
   );
 };

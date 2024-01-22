@@ -1,14 +1,21 @@
 // App.tsx
-import React, { useState } from 'react';
-import TransactionForm from './TransactionForm';
-import PortfolioDisplay from './PortfolioDisplay';
+import React, { useState } from "react";
+import TransactionForm from "./TransactionForm";
+import { containerStyle, headingStyle } from "./common-styles";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HomePage } from "./HomePage";
+import { TransactionsView } from "./TransactionView";
 
 export type TransactionType = {
   coinName: string;
-  transactionType: 'Buy' | 'Sell';
+  transactionType: "Buy" | "Sell";
   quantity: number;
   pricePerCoin: number;
   date: string;
+};
+
+export type TransactionsViewProps = {
+  transactions: TransactionType[];
 };
 
 interface CoinData {
@@ -24,19 +31,9 @@ interface CoinData {
   profitLoss: number;
 }
 
-const containerStyle: React.CSSProperties = {
-  fontFamily: 'Arial, sans-serif',
-  backgroundColor: '#3498db',
-  color: '#fff',
-  padding: '20px',
-  maxWidth: '800px',
-  margin: '0 auto',
-  borderRadius: '10px',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-};
-
-
-function calculatePortfolioAttributes(transactions: TransactionType[]): Record<string, CoinData> {
+function calculatePortfolioAttributes(
+  transactions: TransactionType[]
+): Record<string, CoinData> {
   const coinPortfolio: Record<string, CoinData> = {};
 
   transactions.forEach((transaction) => {
@@ -59,29 +56,31 @@ function calculatePortfolioAttributes(transactions: TransactionType[]): Record<s
 
     const coinData = coinPortfolio[coinName];
 
-    if (transactionType === 'Buy') {
-      coinData.totalQuantity += quantity;
+    if (transactionType === "Buy") {
+      const newTotalQuantity = coinData.totalQuantity + quantity;
       coinData.cumulativeBuyCost += quantity * pricePerCoin;
-      coinData.averageBuyCost = coinData.totalQuantity === 0 ? 0 : coinData.cumulativeBuyCost / coinData.totalQuantity;
-    } else if (transactionType === 'Sell') {
-      const sellQuantity = Math.min(quantity, coinData.totalQuantity);
-      coinData.cumulativeSellCost += sellQuantity * pricePerCoin;
-      coinData.totalQuantity -= sellQuantity;
-
-      // Calculate the average selling price based on the sold quantity
+      coinData.averageBuyCost = coinData.cumulativeBuyCost / newTotalQuantity;
+      coinData.totalQuantity = newTotalQuantity;
+    } else if (transactionType === "Sell") {
+      const sellableQuantity = Math.min(quantity, coinData.totalQuantity);
+      coinData.cumulativeSellCost += sellableQuantity * pricePerCoin;
       coinData.averageSellCost =
-        coinData.totalQuantityOwned === 0 ? 0 : coinData.cumulativeSellCost / coinData.totalQuantityOwned;
+        sellableQuantity > 0
+          ? coinData.cumulativeSellCost / sellableQuantity
+          : 0;
+      coinData.totalQuantity -= sellableQuantity;
     }
 
     coinData.totalQuantityOwned = coinData.totalQuantity;
-    coinData.cumulativeCost = coinData.cumulativeBuyCost - coinData.cumulativeSellCost;
-    coinData.averageCostPerCoin = coinData.totalQuantityOwned === 0 ? 0 : coinData.cumulativeCost / coinData.totalQuantityOwned;
+    coinData.cumulativeCost =
+      coinData.cumulativeBuyCost - coinData.cumulativeSellCost;
     coinData.currentValue = coinData.totalQuantityOwned * pricePerCoin;
     coinData.profitLoss = coinData.currentValue - coinData.cumulativeCost;
   });
 
   return coinPortfolio;
 }
+
 function App() {
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
 
@@ -92,13 +91,24 @@ function App() {
   const coinPortfolio = calculatePortfolioAttributes(transactions);
 
   return (
-    <div style={containerStyle}>
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Crypto Portfolio Manager</h1>
-      <TransactionForm onAddTransaction={addTransaction} />
-      <PortfolioDisplay coinPortfolio={coinPortfolio} />
-    </div>
+    <Router>
+      <div style={containerStyle}>
+        <h1 style={headingStyle}>Crypto Portfolio Manager</h1>
+        <TransactionForm onAddTransaction={addTransaction} />
+
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage coinPortfolio={coinPortfolio} />}
+          />
+          <Route
+            path="/transactions"
+            element={<TransactionsView transactions={transactions} />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
-
 
 export default App;
