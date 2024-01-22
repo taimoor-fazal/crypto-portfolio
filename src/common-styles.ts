@@ -46,20 +46,23 @@ export const tableStyle: React.CSSProperties = {
   borderCollapse: "collapse",
 };
 
+export const tableCellStyle: React.CSSProperties = {
+  borderBottom: "1px solid #ddd",
+  padding: "10px",
+  textAlign: "left",
+};
+
 export const tableHeaderStyle: React.CSSProperties = {
+  ...tableCellStyle,
   background: "#007bff",
   color: "#fff",
   padding: "10px 15px",
   textAlign: "left",
   borderBottom: "2px solid #006fe6",
+  fontWeight: "bold",
 };
 
 export const tableRowStyle: React.CSSProperties = {
-  borderBottom: "1px solid #ddd",
-};
-
-export const tableCellStyle: React.CSSProperties = {
-  padding: "10px 15px",
   borderBottom: "1px solid #ddd",
 };
 
